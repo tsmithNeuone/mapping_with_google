@@ -4,10 +4,18 @@ class CrimesController < ApplicationController
   def index
     @crimes = Crime.all
     @json = @crimes.to_gmaps4rails
+    @geocoded_crimes = Crime.geocoded_crimes
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @crimes }
+      format.json { 
+        render json: @crimes;
+        render json: @geocoded_crimes }
     end
+  end
+  
+   def geocoded_crimes
+    @geocoded_crimes = Crime.geocoded_crimes
+    render :json => @geocoded_crimes
   end
 
   # GET /crimes/1

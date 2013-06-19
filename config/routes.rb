@@ -1,9 +1,14 @@
 MappingWithGoogle::Application.routes.draw do
-  resources :crimes
+  #resources :crimes
 
-
+  match 'test' => 'crimes#geocoded_crimes' 
   resources :cities
-
+  resources :crimes do
+    collection do
+      get :geocoded_crimes
+    end
+  end
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
