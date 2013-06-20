@@ -12,7 +12,7 @@ class Crime < ActiveRecord::Base
     geo_data = []
 
     Crime.by_location.each do |crime|
-      geo_data << { lat:crime.latitude, lng:crime.longitude, count:Random.rand(1...100)  }
+      geo_data << { lat:crime.latitude, lng:crime.longitude, count:Random.rand(100..100)  }
     end
 
     geo_data
