@@ -5,6 +5,27 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <div class="top_bg", id="top_bg_div"></div>
+  
+  	<div class="logos", id="logo_div">
+		<%= image_tag("top_logo.png", :alt => "TRUSpot", :class => "logos", :id => "logo_with_shadow") %>
+		<%= image_tag("logo_no shadow.png", :alt => "TRUSpot", :class => "logos", :id => "logo_no_shadow") %>
+	</div>
+	<%= image_tag("menu_bar.png", :alt => "menu_bar", :class => "divider_bars", :id => "menu_bar") %>
+	<div id="home_buttons">
+		<div class="buttons" id="home_button_div">HOME</div>
+		<%= image_tag("button1.png", :alt => "home_button", :class => "buttons_hidden", :id => "home_button_hover") %>
+		<%= image_tag("button_select.png", :alt => "home_button", :class => "buttons_hidden", :id => "home_button_selected") %>
+	</div>
+	<div id="crimes_buttons">
+		
+	</div>
+	<ul class="nav">
+		<li class="active"><a href="#">Home</a></li>
+		<li><a href="/cities">Cities</a></li>
+		<li><a href="/crimes">Crime</a></li>
+		<li><a href="#">Restaurants</a></li>
+	</ul>
 </head>
 <body>
 
@@ -12,4 +33,6 @@
 <%= yield :scripts %>
 
 </body>
+<%= image_tag("bottom_bar.png", :alt => "bottom_bar", :class => "divider_bars", :id => "bottom_bar") %>
+<div class="bottom_bg", id="bottom_bg_div"></div>
 </html>

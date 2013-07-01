@@ -23,7 +23,6 @@ end
 
 
 gem 'gmaps4rails'
-gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 gem 'geocoder'
 gem 'haml'

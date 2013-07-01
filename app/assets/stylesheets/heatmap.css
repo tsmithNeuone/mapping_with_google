@@ -13,9 +13,8 @@ h1 {
     margin:auto;
 }
 #heatmapArea {
-	right:150px;
-    width:1280px;
-    height:500px;
+    width:100%;
+    height:700px;
 }
 
 
