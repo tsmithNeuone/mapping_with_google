@@ -1,10 +1,25 @@
 var map;
 var MY_MAPTYPE_ID = 'custom_style';
 var geocoder;
+var curLocation;
 
 window.onload = function(){
-	var myLatlng = new google.maps.LatLng(30.3, -97.7);
+	var myLatLng = new google.maps.LatLng(30.3, -97.7);
+	function getLocation(curLocation){ 
+	  	if (navigator.geolocation){
+	    	navigator.geolocation.getCurrentPosition(showPosition, curLocation);
+	    }
+  		else{alert("Geolocation is not supported by this browser.");};
+  	};
+  	function showPosition(position, curLocation){
+  		curLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  		return curLocation;
+  	};
+  	getLocation(curLocation);
+  	alert(curLocation);
 	geocoder = new google.maps.Geocoder();
+	
+	
 	var featureOpts = [
 	    {
 	      stylers: [
@@ -37,7 +52,7 @@ window.onload = function(){
   	};
   	var myOptions = {
 	    zoom: 12,
-	    center: myLatlng,
+	    center: curLocation,
 	    mapTypeControlOptions: {
       		mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
     	},
