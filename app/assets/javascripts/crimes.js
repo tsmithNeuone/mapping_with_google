@@ -1,11 +1,14 @@
 var map;
 var MY_MAPTYPE_ID = 'custom_style';
+var geocoder;
+
 window.onload = function(){
 	var myLatlng = new google.maps.LatLng(30.3, -97.7);
+	geocoder = new google.maps.Geocoder();
 	var featureOpts = [
 	    {
 	      stylers: [
-	        { hue: '#00FF00' },
+	        { hue: '#123EAB' },
 	        { gamma: 0.5 },
 	        { weight: 0.5 }
 	      ]
@@ -13,13 +16,19 @@ window.onload = function(){
 	    {
 	      featureType: 'landscape',
 	      stylers: [
-	        { color: '#3f3f3f' }
+	        { color: '#3e3e3e' }
 	      ]
 	    },
 	    {
 	      featureType: 'water',
 	      stylers: [
-	        { color: '#000000' }
+	        { color: '#2f2f2f' }
+	      ]
+	    },
+	    {
+	      elementType: 'labels.text',
+	      stylers: [
+	        { color: '#FF7600' }
 	      ]
 	    }
 	  ];
@@ -49,10 +58,10 @@ window.onload = function(){
 	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
 	
 	heatmap = new HeatmapOverlay(map, {
-		"radius":25,
+		"radius":20,
 		"visible":true,
-		"opacity":60,
-		"gradient": { 0.35: "rgb(0,0,255)", 0.45: "rgb(255,255,50)", 0.55: "rgb(255,150,50)", 0.75: "rgb(255,0,0)", 0.85: "rgb(175,0,0)", 1.0: "rgb(120,0,0)"}
+		"opacity":30,
+		"gradient": { 0.35: "#008110", 0.45: "#00C618", 0.55: "#A2EF00",0.65: "#E2FA00", 0.75: "#FFCB00", 0.85: "CC0000", 0.95: "990000", 1.0: "#660000"}
 	});
 
 	$.ajax({
@@ -97,11 +106,9 @@ window.onload = function(){
     	heatmap.setDataSet(mapData);
 	});
 	
-	$("#logo_with_shadow").hide();
-	$(".buttons_hidden").hide();
-	$("#home_button_div").hover(function(){
-    	$("#home_button_hover").toggle();
-  	});
+	
+  	
+  	
   	var cur_url = document.location;
   	if( cur_url =="http://localhost:3000/crimes" ){
   		$("#home_button_selected").show();
@@ -109,13 +116,25 @@ window.onload = function(){
   	};
   		
   	$("#home_button_div").click(function(){
-    	alert(document.location);
+    	alert(map.getCenter());
   	});
 	
   	$("#logo_no_shadow").hover(function(){
     	$("#logo_with_shadow").toggle();
   	});
-}
+};
+
+$("#search_form").submit(function(){
+	var address = $("#search_field_form").val();
+	var search_lat_lng = geocoder.geocode({'address': address}, function(results, status){
+		 if (status == google.maps.GeocoderStatus.OK) {
+      		map.panTo(results[0].geometry.location);
+      		map.setZoom(14);
+    	} else {
+      		alert('Geocode was not successful for the following reason: ' + status);
+    	};
+	});
+});
 /*  	
 $(document).ready(function(){
 	var col_counter = 0;

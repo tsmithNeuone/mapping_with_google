@@ -14,3 +14,22 @@
 //= require jquery_ujs
 //= require_tree .
 
+$(document).ready(function(){
+	
+	
+	
+	$("#logo_with_shadow").hide();
+	$(".buttons_hidden").hide();
+	
+	$("#home_button_div").hover(function(){
+    	$("#home_button_hover").toggle();
+  	});
+  	
+  	$("#crimes_button_div").hover(function(){
+    	$("#crime_button_hover").toggle();
+  	});
+  	
+  	$("#about_button_div").hover(function(){
+    	$("#about_button_hover").toggle();
+  	});
+});
