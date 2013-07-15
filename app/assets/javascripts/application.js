@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-
+var cur_url = document.location;
 $(document).ready(function(){
 	
 	
@@ -32,4 +32,15 @@ $(document).ready(function(){
   	$("#about_button_div").hover(function(){
     	$("#about_button_hover").toggle();
   	});
+  	if( cur_url =="http://localhost:3000/crimes" ){
+  		$("#home_button_selected").show();
+  		$("#home_button_div").css("color", "#FF7600");
+  		$("#search_submit_button").show();
+  		$("#search_form").show();
+  		$("#search_bar").show();
+  	} else {
+  		$("#search_submit_button").hide();
+  		$("#search_form").hide();
+  		$("#search_bar").hide();
+  	}
 });

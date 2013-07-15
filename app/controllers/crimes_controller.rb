@@ -2,6 +2,7 @@ class CrimesController < ApplicationController
   # GET /crimes
   # GET /crimes.json
   def index
+    
     @crimes = Crime.all
     @geocoded_crimes = Crime.geocoded_crimes
     respond_to do |format|
@@ -11,7 +12,7 @@ class CrimesController < ApplicationController
     end
   end
   
-   def geocoded_crimes
+  def geocoded_crimes
     @geocoded_crimes = Crime.geocoded_crimes
     render :json => @geocoded_crimes
   end

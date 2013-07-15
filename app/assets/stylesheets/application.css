@@ -12,7 +12,18 @@
  *= require_tree .
  * 
  */
-
+body, html {
+    font-family:Arial;
+}
+#header{
+	position:absolute;
+	background-color:#000000;
+	top:0px;
+	left:0px;
+	height:180px;
+	width:100%;
+	z-index:20;
+}
 
 #top_bg_div{
 	position:fixed;
@@ -130,19 +141,47 @@
 
 #internal_container{
 	position:absolute;
-	padding-bottom:150px;
- 	top:179px;
+ 	top:180px;
  	left:0px;
+ 	bottom:150px;
  	background-color:#3f3f3f;
+ 	height:100%;;
+ 	overflow:auto;
  	width:100%;
- 	z-index: 1;
+ 	z-index: 10;
+}
+.internal_elements{
+	float:left;
+	margin:1%;
+	width:47%;
+	height:90%;
+}
+#heatmap_box{
+
+	background-color:#4f4f4f;
+	
+}
+#heatmapArea {
+    width:100%;
+    height:100%;
 }
 
-#heatmapArea{
+#crime_detail_box{
+	
+	
+	background-color:#FFFFFF;
+
+}
+
+#footer{
+	position:absolute;
+	bottom:0;
+	left:0;
+	height:110px;
 	width:100%;
+	background-color: #000000;
+	
 }
-
-
 #bottom_bar{
 	position:fixed;
 	bottom:80px;
