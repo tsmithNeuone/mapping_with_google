@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Google Maps</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  
-</head>
-<body>
-	<div id='header'>
-		<div class="top_bg", id="top_bg_div"></div>
-	  	<div class="logos", id="logo_div">
-			<%= image_tag("top_logo.png", :alt => "TRUSpot", :class => "logos", :id => "logo_with_shadow") %>
-			<%= image_tag("logo_no shadow.png", :alt => "TRUSpot", :class => "logos", :id => "logo_no_shadow") %>
-		</div>
-		<%= image_tag("menu_bar.png", :alt => "menu_bar", :class => "divider_bars", :id => "menu_bar") %>
-		<div id="home_buttons">
-			<div class="text_layer_buttons" id="home_button_div">HOME</div>
-			<%= image_tag("button1.png", :alt => "home_button", :class => "buttons_hidden", :id => "home_button_hover") %>
-			<%= image_tag("button_select.png", :alt => "home_button", :class => "buttons_hidden", :id => "home_button_selected") %>
-		</div>
-		<div id="crimes_buttons">
-			<div class="text_layer_buttons" id="crimes_button_div">CRIMES</div>
-			<%= image_tag("button1.png", :alt => "crime_button", :class => "buttons_hidden", :id => "crime_button_hover") %>
-			<%= image_tag("button_select.png", :alt => "crime_button", :class => "buttons_hidden", :id => "crime_button_selected") %>
-		</div>
-		<div id="about_buttons">
-			<div class="text_layer_buttons" id="about_button_div">ABOUT</div>
-			<%= image_tag("button1.png", :alt => "about_button", :class => "buttons_hidden", :id => "about_button_hover") %>
-			<%= image_tag("button_select.png", :alt => "about_button", :class => "buttons_hidden", :id => "about_button_selected") %>
-		</div>
-		<div id="search_bar">
-			<%= image_tag("search_field.png", :alt => "search_field", :id => "search_field_image") %>
-			<%= form_tag('search_form',:id => "search_form", remote: true, :method => :get) do%>
+	<head>
+		<title>Google Maps</title>
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+
+	</head>
+	<body>
+		<div id='header'>
+			<div class="top_bg", id="top_bg_div"></div>
+			<div class="logos", id="logo_div">
+				<%= image_tag("top_logo.png", :alt => "TRUSpot", :class => "logos", :id => "logo_with_shadow") %>
+				<%= image_tag("logo_no shadow.png", :alt => "TRUSpot", :class => "logos", :id => "logo_no_shadow") %>
+			</div>
+			<%= image_tag("menu_bar.png", :alt => "menu_bar", :class => "divider_bars", :id => "menu_bar") %>
+			<div id="home_buttons">
+				<div class="text_layer_buttons" id="home_button_div">
+					HOME
+				</div>
+				<%= image_tag("button1.png", :alt => "home_button", :class => "buttons_hidden", :id => "home_button_hover") %>
+				<%= image_tag("button_select.png", :alt => "home_button", :class => "buttons_hidden", :id => "home_button_selected") %>
+			</div>
+			<div id="crimes_buttons">
+				<div class="text_layer_buttons" id="crimes_button_div">
+					CRIMES
+				</div>
+				<%= image_tag("button1.png", :alt => "crime_button", :class => "buttons_hidden", :id => "crime_button_hover") %>
+				<%= image_tag("button_select.png", :alt => "crime_button", :class => "buttons_hidden", :id => "crime_button_selected") %>
+			</div>
+			<div id="about_buttons">
+				<div class="text_layer_buttons" id="about_button_div">
+					ABOUT
+				</div>
+				<%= image_tag("button1.png", :alt => "about_button", :class => "buttons_hidden", :id => "about_button_hover") %>
+				<%= image_tag("button_select.png", :alt => "about_button", :class => "buttons_hidden", :id => "about_button_selected") %>
+			</div>
+			<div id="search_bar">
+				<%= image_tag("search_field.png", :alt => "search_field", :id => "search_field_image") %>
+				<%= form_tag('search_form',:id => "search_form", remote: true, :method => :get) do%>
 				<%= text_field_tag(:search_field_form)  %>
 				<%= image_submit_tag("search button.png",id: "search_submit_button") %>
-			<% end %>
+				<% end %>
+			</div>
 		</div>
-	</div>
-	<%= yield %>
-	<%= yield :scripts %>
-	<div id='footer'></div>
-		<%= image_tag("bottom_bar.png", :alt => "bottom_bar", :class => "divider_bars", :id => "bottom_bar") %>
-		<div class="bottom_bg", id="bottom_bg_div"></div>
-</body>
+		<div class="container", id="internal_wrapper">
+			<div id='internal_container'>
+				<%= yield %>
+				<%= yield :scripts %>
+			</div>
+
+		</div>
+		<div id='footer'>
+			<%= image_tag("bottom_bar.png", :alt => "bottom_bar", :class => "divider_bars", :id => "bottom_bar") %>
+			<div class="bottom_bg", id="bottom_bg_div"></div>
+		</div>
+	</body>
 
 </html>

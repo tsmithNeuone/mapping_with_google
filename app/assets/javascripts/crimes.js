@@ -1,9 +1,9 @@
-var map;
+var map, heatmap,crime_array_mvc;
 var MY_MAPTYPE_ID = 'custom_style';
 var geocoder;
+var crime_array =[];
 
-
-window.onload = function(){
+function initialize(){
 	var myLatLng = new google.maps.LatLng(30.3, -97.7);
 	geocoder = new google.maps.Geocoder();
 	
@@ -67,12 +67,12 @@ window.onload = function(){
 	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
 	
 	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
-	heatmap = new HeatmapOverlay(map, {
-		"radius":20,
-		"visible":true,
-		"opacity":30,
-		"gradient": { 0.35: "#008110", 0.45: "#00C618", 0.55: "#A2EF00",0.65: "#E2FA00", 0.75: "#FFCB00", 0.85: "CC0000", 0.95: "990000", 1.0: "#660000"}
-	});
+//	heatmap = new HeatmapOverlay(map, {
+//		"radius":20,
+//		"visible":true,
+//		"opacity":30,
+//		"gradient": { 0.35: "#008110", 0.45: "#00C618", 0.55: "#A2EF00",0.65: "#E2FA00", 0.75: "#FFCB00", 0.85: "CC0000", 0.95: "990000", 1.0: "#660000"}
+//	});
 	
 	var crimes_json = (function () { 
 		$.ajax({
@@ -80,10 +80,16 @@ window.onload = function(){
 			dataType: "json",
 			url: "/crimes.json",
 			success: function(data){ 
-				mapData={
-					max: 46,
-					data: data
-				};
+				for(var i = 0; i < data.length; i++){
+					var tempLatLng =new google.maps.LatLng(data[i].lat, data[i].lng);
+					crime_array.push(tempLatLng);
+					var marker = new google.maps.Marker({
+						icon: '/assets/pirate_skulls_and_bones.png',
+						position: tempLatLng,
+						map: map,
+						title:'crime'
+					});
+				}
 			}
 		});
 	})();
@@ -124,23 +130,42 @@ window.onload = function(){
      		}, 
         }); 
 	})();
- 
- 
-	google.maps.event.addListenerOnce(map, "idle", function(){
-    	heatmap.setDataSet(mapData);
-	});
+	
+ 	var crime_array_mvc = new google.maps.MVCArray(crime_array);
+	console.log(crime_array_mvc);
+  	heatmap = new google.maps.visualization.HeatmapLayer({
+    	data: crime_array_mvc,
+    	radius: 20,
+    	gradient: [
+				    'rgba(0, 255, 255, 0)',
+				    'rgba(0, 255, 255, 1)',
+				    'rgba(0, 191, 255, 1)',
+				    'rgba(0, 127, 255, 1)',
+				    'rgba(0, 63, 255, 1)',
+				    'rgba(0, 0, 255, 1)',
+				    'rgba(0, 0, 223, 1)',
+				    'rgba(0, 0, 191, 1)',
+				    'rgba(0, 0, 159, 1)',
+				    'rgba(0, 0, 127, 1)',
+				    'rgba(63, 0, 91, 1)',
+				    'rgba(127, 0, 63, 1)',
+				    'rgba(191, 0, 31, 1)',
+				    'rgba(255, 0, 0, 1)'
+				  ]
+  	});
+	heatmap.setMap(map);
+	
+//	google.maps.event.addListenerOnce(map, "idle", function(){
+//    	heatmap.setDataSet(mapData);
+//    	heatmap._reset();
+//    	heatmap._update();
+//	});
 	
 	
 
   	
 };
 
-
-  	
-
-$("#logo_no_shadow").hover(function(){
-    	$("#logo_with_shadow").toggle();
-  	});
 
 $("#home_button_div").click(function(){
     	alert(map.getCenter());
@@ -210,5 +235,38 @@ $(window).resize(function() {
 });
 
   */
-  
-   
+
+function toggleHeatmap() {
+  heatmap.setMap(heatmap.getMap() ? null : map);
+}
+
+function changeGradient() {
+  var gradient = [
+    'rgba(0, 255, 255, 0)',
+    'rgba(0, 255, 255, 1)',
+    'rgba(0, 191, 255, 1)',
+    'rgba(0, 127, 255, 1)',
+    'rgba(0, 63, 255, 1)',
+    'rgba(0, 0, 255, 1)',
+    'rgba(0, 0, 223, 1)',
+    'rgba(0, 0, 191, 1)',
+    'rgba(0, 0, 159, 1)',
+    'rgba(0, 0, 127, 1)',
+    'rgba(63, 0, 91, 1)',
+    'rgba(127, 0, 63, 1)',
+    'rgba(191, 0, 31, 1)',
+    'rgba(255, 0, 0, 1)'
+  ]
+  heatmap.setOptions({
+    gradient: heatmap.get('gradient') ? null : gradient
+  });
+}
+
+function changeRadius() {
+  heatmap.setOptions({radius: heatmap.get('radius') ? null : 20});
+}
+
+function changeOpacity() {
+  heatmap.setOptions({opacity: heatmap.get('opacity') ? null : 0.2});
+}
+

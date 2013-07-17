@@ -17,7 +17,6 @@ var cur_url = document.location;
 $(document).ready(function(){
 	
 	
-	
 	$("#logo_with_shadow").hide();
 	$(".buttons_hidden").hide();
 	
@@ -28,6 +27,11 @@ $(document).ready(function(){
   	$("#crimes_button_div").hover(function(){
     	$("#crime_button_hover").toggle();
   	});
+  	
+  	$("#logo_no_shadow").hover(function(){
+    	$("#logo_with_shadow").toggle();
+  	});
+	
   	
   	$("#about_button_div").hover(function(){
     	$("#about_button_hover").toggle();
