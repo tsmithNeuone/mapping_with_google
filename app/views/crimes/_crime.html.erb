@@ -5,6 +5,10 @@
 	<%= crime.city %>
 	<%= crime.state %>
 	<%= crime.zipcode %>
+	<div class='hidden_info'>
+		<div id='lat'><%= crime.latitude %></div>
+		<div id='lng'><%= crime.longitude %></div>
+	</div>
 	<div class='crime_partial_links'>
 		<%= link_to 'Show', crime %>
 		<%= link_to 'Edit', edit_crime_path(crime) %>

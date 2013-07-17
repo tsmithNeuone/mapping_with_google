@@ -192,9 +192,12 @@ body, html {
 }
 
 #crime_detail_box {
-	
 	padding: 8px;
 	overflow: auto;
+}
+
+.hidden_info{
+	display: none;
 }
 
 .crime_partial {

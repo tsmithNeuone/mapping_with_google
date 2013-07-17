@@ -3,6 +3,17 @@ var MY_MAPTYPE_ID = 'custom_style';
 var geocoder;
 var crime_array =[];
 
+
+$(document).ready(function(){
+	
+	$(".crime_partial").click(function(){
+		goToPosition($(this).find('.hidden_info #lat').text(),$(this).find('.hidden_info #lng').text());
+	
+	});
+});
+
+
+
 function initialize(){
 	var myLatLng = new google.maps.LatLng(30.3, -97.7);
 	geocoder = new google.maps.Geocoder();
@@ -93,7 +104,6 @@ function initialize(){
 			}
 		});
 	})();
-	var markers = [];
 	var city_json = (function () { 
 		$.ajax({ 
 			type: "GET",
@@ -154,23 +164,15 @@ function initialize(){
 				  ]
   	});
 	heatmap.setMap(map);
-	
-//	google.maps.event.addListenerOnce(map, "idle", function(){
-//    	heatmap.setDataSet(mapData);
-//    	heatmap._reset();
-//    	heatmap._update();
-//	});
-	
-	
-
-  	
 };
 
 
 $("#home_button_div").click(function(){
     	alert(map.getCenter());
     	getLocation();
-  	});
+});
+
+
 
 $("#search_form").submit(function(){
 	alert("test");
@@ -193,12 +195,15 @@ $("#search_form").submit(function(){
 function getLocation(){ 
   	if (navigator.geolocation){
     	navigator.geolocation.getCurrentPosition(showPosition,err);
-    }
-	else{alert("Geolocation is not supported by this browser.");};
+    } else {
+		alert("Geolocation is not supported by this browser.");
+	};
 };
+
 function err(){
-	alert("Geolocation failed. Make sure your browser supports geolocation!")
+	alert("Geolocation failed. Make sure your browser supports geolocation!");
 };
+
 function showPosition(position){
   	var tempvar = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	var tempmarker = new google.maps.Marker({
@@ -206,67 +211,22 @@ function showPosition(position){
 		map: map,
 		title:'Current Position'
 	});
-	map.setCenter(tempvar);
+	map.panTo(tempvar);
 	map.setZoom(14);
 };
-/*  	
-$(document).ready(function(){
-	var col_counter = 0;
-	var row_counter = 0;
-	$("#logo_with_shadow").hide();
+
+function goToPosition(myLat,myLng){
+	var templocation = new google.maps.LatLng(myLat, myLng);
+	var tempmarker = new google.maps.Marker({
+		icon: '/assets/pirate_skulls_and_bones.png',
+		position: templocation,
+		map: map,
+		animation: google.maps.Animation.DROP
+	});
+	map.panTo(templocation);
+	map.setZoom(14);
 	
-  	$("#logo_no_shadow").hover(function(){
-    	$("#logo_with_shadow").toggle();
-  	});
-  	$("#logo_div").click(function(){
-  		if(col_counter % 9 === 0){
-  			row_counter+=1;
-  			var row_break = "<div id=\"break_line\">"
-  			$(".box").append(row_break);
-		};
+	
+};
 
-		var small_box = "<div class=\"row\" id=\"row_" + row_counter + "\">"+ (col_counter%9 + 1) + "</div>";
-		$(".box").append(small_box);
-		
-    	col_counter+=1;
-  	});
-});
-$(window).resize(function() {
-});
-
-  */
-
-function toggleHeatmap() {
-  heatmap.setMap(heatmap.getMap() ? null : map);
-}
-
-function changeGradient() {
-  var gradient = [
-    'rgba(0, 255, 255, 0)',
-    'rgba(0, 255, 255, 1)',
-    'rgba(0, 191, 255, 1)',
-    'rgba(0, 127, 255, 1)',
-    'rgba(0, 63, 255, 1)',
-    'rgba(0, 0, 255, 1)',
-    'rgba(0, 0, 223, 1)',
-    'rgba(0, 0, 191, 1)',
-    'rgba(0, 0, 159, 1)',
-    'rgba(0, 0, 127, 1)',
-    'rgba(63, 0, 91, 1)',
-    'rgba(127, 0, 63, 1)',
-    'rgba(191, 0, 31, 1)',
-    'rgba(255, 0, 0, 1)'
-  ]
-  heatmap.setOptions({
-    gradient: heatmap.get('gradient') ? null : gradient
-  });
-}
-
-function changeRadius() {
-  heatmap.setOptions({radius: heatmap.get('radius') ? null : 20});
-}
-
-function changeOpacity() {
-  heatmap.setOptions({opacity: heatmap.get('opacity') ? null : 0.2});
-}
 

@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require application
 var cur_url = document.location;
 $(document).ready(function(){
 	
@@ -37,6 +37,7 @@ $(document).ready(function(){
     	$("#about_button_hover").toggle();
   	});
   	if( cur_url =="http://localhost:3000/crimes" ){
+  		initialize();
   		$("#home_button_selected").show();
   		$("#home_button_div").css("color", "#FF7600");
   		$("#search_submit_button").show();
@@ -47,4 +48,5 @@ $(document).ready(function(){
   		$("#search_form").hide();
   		$("#search_bar").hide();
   	}
+  	
 });
