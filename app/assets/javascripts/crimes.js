@@ -2,11 +2,12 @@ var map, heatmap,crime_array_mvc;
 var MY_MAPTYPE_ID = 'custom_style';
 var geocoder;
 var crime_array =[];
-
+var crime_markers = {};
 
 $(document).ready(function(){
 	
 	$(".crime_partial").click(function(){
+		
 		goToPosition($(this).find('.hidden_info #lat').text(),$(this).find('.hidden_info #lng').text());
 	
 	});
@@ -78,12 +79,6 @@ function initialize(){
 	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
 	
 	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
-//	heatmap = new HeatmapOverlay(map, {
-//		"radius":20,
-//		"visible":true,
-//		"opacity":30,
-//		"gradient": { 0.35: "#008110", 0.45: "#00C618", 0.55: "#A2EF00",0.65: "#E2FA00", 0.75: "#FFCB00", 0.85: "CC0000", 0.95: "990000", 1.0: "#660000"}
-//	});
 	
 	var crimes_json = (function () { 
 		$.ajax({
@@ -98,8 +93,9 @@ function initialize(){
 						icon: '/assets/pirate_skulls_and_bones.png',
 						position: tempLatLng,
 						map: map,
-						title:'crime'
+						id: 'marker_' + getMarkerUniqueId(data[i].lat, data[i].lng)
 					});
+					crime_markers[getMarkerUniqueId(data[i].lat, data[i].lng)] = marker;
 				}
 			}
 		});
@@ -141,6 +137,8 @@ function initialize(){
         }); 
 	})();
 	
+	
+	
  	var crime_array_mvc = new google.maps.MVCArray(crime_array);
 	console.log(crime_array_mvc);
   	heatmap = new google.maps.visualization.HeatmapLayer({
@@ -166,13 +164,14 @@ function initialize(){
 	heatmap.setMap(map);
 };
 
+var getMarkerUniqueId = function(lat, lng) {
+		return lat + '_' + lng;
+};
 
 $("#home_button_div").click(function(){
     	alert(map.getCenter());
     	getLocation();
 });
-
-
 
 $("#search_form").submit(function(){
 	alert("test");
@@ -217,16 +216,12 @@ function showPosition(position){
 
 function goToPosition(myLat,myLng){
 	var templocation = new google.maps.LatLng(myLat, myLng);
-	var tempmarker = new google.maps.Marker({
-		icon: '/assets/pirate_skulls_and_bones.png',
-		position: templocation,
-		map: map,
-		animation: google.maps.Animation.DROP
-	});
 	map.panTo(templocation);
+	var markerId = getMarkerUniqueId(myLat, myLng);
+	var marker = crime_markers[markerId];
+	marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function(){ marker.setAnimation(null); }, 1500);
 	map.setZoom(14);
-	
-	
 };
 
 
