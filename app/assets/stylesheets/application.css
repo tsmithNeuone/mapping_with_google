@@ -203,7 +203,7 @@ body, html {
 }
 /* css for pagination holder*/
  .pagination_controller {
-    margin:15px 0;
+    margin:5px 0;
 }
 .pagination_controller a {
     font-size:12px;

@@ -16,7 +16,7 @@ $(document).ready(function(){
 		animation	 : "fadeInRight",
 		minHeight	 : false,
 		delay		 : 100,
-        perPage      : 10,
+        perPage      : 8,
         startPage    : 1,
         startRange   : 1,
         midRange     : 5,
