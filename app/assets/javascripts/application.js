@@ -38,8 +38,8 @@ $(document).ready(function(){
   	});
   	if( cur_url =="http://localhost:3000/crimes" ){
   		initialize();
-  		$("#home_button_selected").show();
-  		$("#home_button_div").css("color", "#FF7600");
+  		$("#crime_button_selected").show();
+  		$("#crimes_button_div").css("color", "#FF7600");
   		$("#search_submit_button").show();
   		$("#search_form").show();
   		$("#search_bar").show();

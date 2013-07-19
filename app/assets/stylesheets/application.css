@@ -193,16 +193,51 @@ body, html {
 
 #crime_detail_box {
 	padding: 8px;
+	max-height:93%;
+	height:auto;
 	overflow: auto;
 }
 
 .hidden_info{
 	display: none;
 }
-
+/* css for pagination holder*/
+ .pagination_controller {
+    margin:15px 0;
+}
+.pagination_controller a {
+    font-size:12px;
+    cursor:pointer;
+    margin:0 5px;
+    color:#bbb;
+}
+.pagination_controller a:hover {
+    background-color:#222;
+    color:#fff;
+}
+.pagination_controller a.jp-previous {
+    margin-right:15px;
+}
+.pagination_controller a.jp-next {
+    margin-left:15px;
+}
+.pagination_controller a.jp-current,a.jp-current:hover {
+    color:#00A287;
+    font-weight:bold;
+}
+.pagination_controller a.jp-disabled,a.jp-disabled:hover {
+    color:#1f1f1f;
+}
+.pagination_controller a.jp-current,a.jp-current:hover,.pagination_controller a.jp-disabled,a.jp-disabled:hover {
+    cursor:default;
+    background:none;
+}
+.pagination_controller span {
+    margin:0 5px;
+}
+/*end css for pagination*/
 
 .crime_partial {
-	display:none;
 	position: relative;
 	width: 95%;
 	height: 80px;

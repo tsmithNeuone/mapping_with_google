@@ -11,15 +11,19 @@ $(document).ready(function(){
 		goToPosition($(this).find('.hidden_info #lat').text(),$(this).find('.hidden_info #lng').text());
 	
 	});
-	
-	$(".crime_partial").each(function(index){
-		var crime_par = $(this);
-        
-        setTimeout(function() {
-            crime_par.animate({
-            	width: 'toggle',}, 1000);
-			}, 200 * index);
+	$(".pagination_controller").jPages({
+		containerID  : "all_crime_partials",
+		animation	 : "fadeInRight",
+		minHeight	 : false,
+		delay		 : 100,
+        perPage      : 10,
+        startPage    : 1,
+        startRange   : 1,
+        midRange     : 5,
+        endRange     : 1
 	});
+	
+	
 });
 
 
