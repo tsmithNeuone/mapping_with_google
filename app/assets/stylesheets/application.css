@@ -200,8 +200,9 @@ body, html {
 	display: none;
 }
 
-.crime_partial {
 
+.crime_partial {
+	display:none;
 	position: relative;
 	width: 95%;
 	height: 80px;

@@ -11,6 +11,15 @@ $(document).ready(function(){
 		goToPosition($(this).find('.hidden_info #lat').text(),$(this).find('.hidden_info #lng').text());
 	
 	});
+	
+	$(".crime_partial").each(function(index){
+		var crime_par = $(this);
+        
+        setTimeout(function() {
+            crime_par.animate({
+            	width: 'toggle',}, 1000);
+			}, 200 * index);
+	});
 });
 
 
@@ -167,6 +176,8 @@ function initialize(){
 var getMarkerUniqueId = function(lat, lng) {
 		return lat + '_' + lng;
 };
+
+
 
 $("#home_button_div").click(function(){
     	alert(map.getCenter());
