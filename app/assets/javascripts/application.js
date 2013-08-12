@@ -14,39 +14,29 @@
 //= require jquery_ujs
 //= require application
 var cur_url = document.location;
-$(document).ready(function(){
-	
-	
+$(document).ready(function() {
+
 	$("#logo_with_shadow").hide();
 	$(".buttons_hidden").hide();
-	
-	$("#home_button_div").hover(function(){
-    	$("#home_button_hover").toggle();
-  	});
-  	
-  	$("#crimes_button_div").hover(function(){
-    	$("#crime_button_hover").toggle();
-  	});
-  	
-  	$("#logo_no_shadow").hover(function(){
-    	$("#logo_with_shadow").toggle();
-  	});
-	
-  	
-  	$("#about_button_div").hover(function(){
-    	$("#about_button_hover").toggle();
-  	});
-  	if( cur_url =="http://localhost:3000/crimes" ){
-  		initialize();
-  		$("#crime_button_selected").show();
-  		$("#crimes_button_div").css("color", "#FF7600");
-  		$("#search_submit_button").show();
-  		$("#search_form").show();
-  		$("#search_bar").show();
-  	} else {
-  		$("#search_submit_button").hide();
-  		$("#search_form").hide();
-  		$("#search_bar").hide();
-  	}
-  	
-});
+
+	$("#home_button_div").hover(function() {
+		$("#home_button_hover").toggle();
+	});
+
+	$("#crimes_button_div").hover(function() {
+		$("#crime_button_hover").toggle();
+	});
+
+	$("#logo_no_shadow").hover(function() {
+		$("#logo_with_shadow").toggle();
+	});
+
+	$("#about_button_div").hover(function() {
+		$("#about_button_hover").toggle();
+	});
+	initialize();
+	$("#crime_button_selected").show();
+	$("#crimes_button_div").css("color", "#FF7600");
+	$("#search_bar").hide();
+
+}); 

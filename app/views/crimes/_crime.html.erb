@@ -1,17 +1,24 @@
 <div class='crime_partial'>
-	<%= crime.title %> <%= crime.type_of_crime %>
-	<%= crime.date_of_crime %>
-	<%= crime.street_address %>
-	<%= crime.city %>
-	<%= crime.state %>
-	<%= crime.zipcode %>
-	<div class='hidden_info'>
-		<div id='lat'><%= crime.latitude %></div>
-		<div id='lng'><%= crime.longitude %></div>
-	</div>
-	<div class='crime_partial_links'>
-		<%= link_to 'Show', crime %>
-		<%= link_to 'Edit', edit_crime_path(crime) %>
-		<%= link_to 'Destroy', crime, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<div id="crime_partial_details">
+
+		<%= crime.title %> <%= crime.type_of_crime %>
+		<%= crime.date_of_crime %>
+		<%= crime.street_address %>
+		<%= crime.city %>
+		<%= crime.state %>
+		<%= crime.zipcode %>
+		<div class='hidden_info'>
+			<div id='lat'>
+				<%= crime.latitude %>
+			</div>
+			<div id='lng'>
+				<%= crime.longitude %>
+			</div>
+		</div>
+		<div class='crime_partial_links'>
+			<%= link_to 'Show', crime %>
+			<%= link_to 'Edit', edit_crime_path(crime) %>
+			<%= link_to 'Destroy', crime, method: :delete, data: { confirm: 'Are you sure?' } %>
+		</div>
 	</div>
 </div>

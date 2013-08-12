@@ -7,10 +7,9 @@ var crime_markers = {};
 $(document).ready(function(){
 	
 	$(".crime_partial").click(function(){
-		
 		goToPosition($(this).find('.hidden_info #lat').text(),$(this).find('.hidden_info #lng').text());
-	
 	});
+	
 	$(".pagination_controller").jPages({
 		containerID  : "all_crime_partials",
 		animation	 : "fadeInRight",
@@ -22,13 +21,12 @@ $(document).ready(function(){
         midRange     : 5,
         endRange     : 1
 	});
-	
-	
 });
 
 
 
 function initialize(){
+	
 	var myLatLng = new google.maps.LatLng(30.3, -97.7);
 	geocoder = new google.maps.Geocoder();
 	
@@ -94,23 +92,36 @@ function initialize(){
 	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
 	
 	var crimes_json = (function () { 
+		//var str_url = "107.21.114.223/nearby/?long=" + map.getCenter().lng() + "&lat=" + map.getCenter().lat() + "&limit=100"
+		var str_url = "http://107.21.114.223/nearby/?long=-97.69999999999999&lat=30.3&limit=100"
+		prompt("test", str_url);
 		$.ajax({
 			type: "GET",
-			dataType: "json",
-			url: "/crimes.json",
+			url: str_url,
+			crossDomain: true,
+			dataType: "jsonp",
 			success: function(data){ 
-				for(var i = 0; i < data.length; i++){
-					var tempLatLng =new google.maps.LatLng(data[i].lat, data[i].lng);
+				console.log("worked");
+				var crimes = data.crimes;
+				for(var i = 0; i < crimes.length; i++){
+					alert(data);
+					var tempLatLng =new google.maps.LatLng(crimes[i].latitude, crimes[i].longitude);
 					crime_array.push(tempLatLng);
+					var temp_name = crimes[i].name;
 					var marker = new google.maps.Marker({
 						icon: '/assets/pirate_skulls_and_bones.png',
 						position: tempLatLng,
 						map: map,
-						id: 'marker_' + getMarkerUniqueId(data[i].lat, data[i].lng)
+						id: 'marker_' + getMarkerUniqueId(crimes[i].latitude, crimes[i].longitude),
+						name: temp_name
 					});
-					crime_markers[getMarkerUniqueId(data[i].lat, data[i].lng)] = marker;
+					crime_markers[getMarkerUniqueId(crimes[i].latitude, crimes[i].longitude)] = marker;
 				}
-			}
+			},
+			error: function( req, status, err ) {
+    			console.log( 'something went wrong', status, err );
+	 		}
+			
 		});
 	})();
 	var city_json = (function () { 
@@ -150,8 +161,6 @@ function initialize(){
         }); 
 	})();
 	
-	
-	
  	var crime_array_mvc = new google.maps.MVCArray(crime_array);
 	console.log(crime_array_mvc);
   	heatmap = new google.maps.visualization.HeatmapLayer({
@@ -182,10 +191,53 @@ var getMarkerUniqueId = function(lat, lng) {
 };
 
 
-
 $("#home_button_div").click(function(){
-    	alert(map.getCenter());
-    	getLocation();
+	getLocation();
+	//TODO: add code here to hide other buttons and make this button orange
+	$(this).parent().find(".button_selected").show();
+	$(this).css("color", "#FF7600");
+	$("#search_bar").show()
+	$("#crimes_button_div").css("color", "#FFFFFF");
+	$("#about_button_div").css("color", "#FFFFFF");
+	$("#about_buttons").find(".button_selected").hide();
+	$("#crimes_buttons").find(".button_selected").hide();
+	$("#crime_detail_box").fadeOut('fast',function(){
+		$("#filter_options").fadeIn('slow');
+	});
+	$("#about_us").fadeOut('fast', function(){
+		$("#filter_options").fadeIn('slow');
+	});
+});
+
+$("#crimes_button_div").click(function(){
+	$(this).parent().find(".button_selected").show();
+	$(this).css("color", "#FF7600");
+	$("#about_button_div").css("color", "#FFFFFF");
+	$("#home_button_div").css("color", "#FFFFFF");
+	$("#about_buttons").find(".button_selected").hide();
+	$("#home_buttons").find(".button_selected").hide();
+	$("#filter_options").fadeOut('fast',function(){
+		$("#crime_detail_box").fadeIn('slow');
+	});
+	$("#about_us").fadeOut('fast',function(){
+		$("#crime_detail_box").fadeIn('slow');
+	});
+	
+});
+
+$("#about_button_div").click(function(){
+	$(this).parent().find(".button_selected").show();
+	$(this).css("color", "#FF7600");
+	$("#crimes_button_div").css("color", "#FFFFFF");
+	$("#home_button_div").css("color", "#FFFFFF");
+	$("#crimes_buttons").find(".button_selected").hide();
+	$("#home_buttons").find(".button_selected").hide();
+	$("#filter_options").fadeOut('fast',function(){
+		$("#about_us").fadeIn('slow');
+	});
+	$("#crime_detail_box").fadeOut('fast',function(){
+		$("#about_us").fadeIn('slow');
+	});
 });
 
 $("#search_form").submit(function(){

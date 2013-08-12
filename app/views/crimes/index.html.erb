@@ -7,61 +7,22 @@
 </div>
 
 <div id='crime_detail_box', class='internal_elements'>
-	Crimes
 	<div class='pagination_controller'></div>
 	<div id="all_crime_partials">
 		<% @crimes.each do |crime| %>
 			<li><%= render crime%></li>
 		<% end %>
 	</div>
+	<div class='pagination_controller'></div>
 	<br />
 
 	<%= link_to 'New Crime', new_crime_path %>
 </div>
-
-<!--
-<hr>
-<h2>Crimes</h2>
-<p>
-<section id="tables">
-
-<table class="table table-bordered table-striped table-hover">
-<thead>
-<tr>
-<th>Title</th>
-<th>Type</th>
-<th>Date of crime</th>
-<th>Latitude</th>
-<th>Longitude</th>
-<th>Street address</th>
-<th>City</th>
-<th>State</th>
-<th>Zipcode</th>
-</tr>
-</thead>
-<tbody>
-<% @crimes.each do |crime| %>
-<tr>
-<td><%= crime.title %></td>
-<td><%= crime.type_of_crime %></td>
-<td><%= crime.date_of_crime %></td>
-<td><%= crime.latitude %></td>
-<td><%= crime.longitude %></td>
-<td><%= crime.street_address %></td>
-<td><%= crime.city %></td>
-<td><%= crime.state %></td>
-<td><%= crime.zipcode %></td>
-<td><%= link_to 'Show', crime %></td>
-<td><%= link_to 'Edit', edit_crime_path(crime) %></td>
-<td><%= link_to 'Destroy', crime, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-</tr>
-<% end %>
-
-</tbody>
-</table>
-</section>
-
-<br />
-
-<%= link_to 'New Crime', new_crime_path %>
-//-->
+<div id="filter_options", class="internal_elements">
+	<%= form_tag('map_parameters_form',:id => "parameters_form", remote: true) do%>
+	
+	<%end%>
+</div>
+<div id='about_us' class="internal_elements">
+	TODO: put info about us here
+</div>
